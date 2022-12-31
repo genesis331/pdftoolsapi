@@ -16,7 +16,7 @@ public class CompressDoc extends HttpServlet {
         message = "CompressDoc";
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         out.print("{\"message\": \"" + message + "\"}");
