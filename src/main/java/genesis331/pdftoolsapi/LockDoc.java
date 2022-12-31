@@ -22,11 +22,11 @@ public class LockDoc extends HttpServlet {
     public void init() {}
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (request.getPart("file") != null) {
+        if (request.getPart("file") != null && request.getParameter("password") != null) {
             response.setContentType("application/pdf");
             OutputStream out = response.getOutputStream();
             PDDocument document = Loader.loadPDF(request.getPart("file").getInputStream());
-            StandardProtectionPolicy spp = new StandardProtectionPolicy("password", "password", new AccessPermission());
+            StandardProtectionPolicy spp = new StandardProtectionPolicy(request.getParameter("password"), request.getParameter("password"), new AccessPermission());
             response.setHeader("Content-Disposition", "attachment; filename=\"locked-" + request.getPart("file").getSubmittedFileName() + ".pdf\"");
             document.protect(spp);
             document.save(out);
@@ -34,7 +34,7 @@ public class LockDoc extends HttpServlet {
         } else {
             response.setContentType("application/json");
             PrintWriter out2 = response.getWriter();
-            out2.print("{\"error\": \"No file provided.\"}");
+            out2.print("{\"error\": \"Not enough parameters provided.\"}");
         }
     }
 
