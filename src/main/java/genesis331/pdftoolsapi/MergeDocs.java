@@ -16,11 +16,8 @@ import java.io.ByteArrayOutputStream;
 @WebServlet(name = "merge", value = "/merge")
 @MultipartConfig
 public class MergeDocs extends HttpServlet {
-    private String message;
-
-    public void init() {
-        message = "MergeDocs";
-    }
+    
+    public void init() {}
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if(request.getParts().isEmpty() != true) {
