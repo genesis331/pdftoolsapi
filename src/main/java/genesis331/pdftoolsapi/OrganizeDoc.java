@@ -13,17 +13,13 @@ import org.apache.pdfbox.pdfwriter.compress.CompressParameters;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.io.PrintWriter;
 import java.io.OutputStream;
 
 @WebServlet(name = "organize", value = "/organize")
 @MultipartConfig
 public class OrganizeDoc extends HttpServlet {
-    private String message;
 
-    public void init() {
-        message = "OrganizeDoc";
-    }
+    public void init() {}
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("application/pdf");
@@ -46,7 +42,6 @@ public class OrganizeDoc extends HttpServlet {
             response.setHeader("Content-Disposition", "attachment; filename=" + request.getPart("file").getSubmittedFileName() + ".pdf\"");
             newDocument.save(out, CompressParameters.DEFAULT_COMPRESSION);
             out.flush();
-
         }
     }
 
